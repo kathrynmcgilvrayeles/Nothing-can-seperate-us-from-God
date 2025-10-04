@@ -241,21 +241,18 @@
 
 
     <script>
-        // --- IMPORTANT ---
-        // The URL has been updated to point to your GitHub Pages live site URL for reliability.
-        const imageBaseUrl = 'https://kathrynmcgillivrayeles.github.io/Nothing-can-seperate-us-from-God/';
-
-        // This code finds all the images and sets their source from the URL above
+        // This code finds all the images and sets their source.
+        // Since the images are in the same folder as the html file, we can just use their name directly.
         document.querySelectorAll('.card-back img').forEach(img => {
             const imageName = img.getAttribute('data-src');
-            img.src = imageBaseUrl + imageName;
+            img.src = imageName; // Use the direct image name
 
             // This part shows an error message right on the card if an image fails to load.
             img.onerror = () => {
                 const parent = img.parentElement;
                 parent.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center; padding: 10px; font-size: 1rem;">
                     <strong style="font-size:1.2rem; margin-bottom: 5px;">Image not found!</strong>
-                    Check the 'imageBaseUrl' in the script.
+                    Make sure the image name is correct.
                 </div>`;
             };
         });
