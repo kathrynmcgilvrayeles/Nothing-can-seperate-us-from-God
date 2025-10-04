@@ -92,7 +92,32 @@
             display: block;
         }
 
-        /* --- New Pop-up Styles --- */
+        /* --- New Reveal Button Styles --- */
+        .reveal-box {
+            display: none; /* Hidden by default */
+            margin-top: 30px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .reveal-box button {
+            background-color: #4b6b74;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .reveal-box button:hover {
+            background-color: #3a545c;
+            transform: scale(1.05);
+        }
+
+
+        /* --- Pop-up Styles --- */
         .popup-overlay {
             position: fixed;
             top: 0;
@@ -230,6 +255,12 @@
         </div>
     </div>
 
+    <!-- New box to reveal the verse, initially hidden -->
+    <div id="reveal-verse-box" class="reveal-box">
+        <button id="reveal-verse-button">Click here for the final answer!</button>
+    </div>
+
+
     <!-- This is the hidden popup that will appear at the end -->
     <div id="verse-popup" class="popup-overlay">
         <div class="popup-content">
@@ -257,10 +288,12 @@
             };
         });
 
-        // --- New code for popup functionality ---
+        // --- Code for popup and reveal functionality ---
         const cards = document.querySelectorAll('.card');
         const versePopup = document.getElementById('verse-popup');
         const closePopupButton = document.getElementById('close-popup');
+        const revealVerseBox = document.getElementById('reveal-verse-box');
+        const revealVerseButton = document.getElementById('reveal-verse-button');
         const totalCards = cards.length;
 
         cards.forEach(card => {
@@ -271,10 +304,16 @@
                 if (document.querySelectorAll('.card.flipped').length === totalCards) {
                     // Use a short delay to allow the last card to finish flipping
                     setTimeout(() => {
-                        versePopup.style.display = 'flex';
+                        // Instead of showing the popup, show the reveal button
+                        revealVerseBox.style.display = 'block';
                     }, 800); // 800ms delay
                 }
             });
+        });
+
+        // Add click listener to the new reveal button to show the popup
+        revealVerseButton.addEventListener('click', () => {
+            versePopup.style.display = 'flex';
         });
 
         // Close the popup when the 'x' is clicked
